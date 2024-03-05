@@ -3,30 +3,28 @@ import { createApp, ref } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js'
 createApp({
   setup() {
     const apiUrl = 'https://vue3-course-api.hexschool.io';
-    const path = 'pandaachu';
-    // const token = '';
-    // const uid = '';
+    const token = '';
     const user = ref({
       username: '',
       password: '',
     });
 
-    const signIn = () => {
-      console.log('Sign In');
-      // const config = {
-      //   headers: { Authorization: token },
-      // };
-      axios
-        .post(`${apiUrl}/v2/admin/signin`, user.value)
-        .then(res => {
-          console.log(res.data);
-          const { expired, token } = res.data;
-          // 儲存 token 在 cookie
-          document.cookie = `hexToken=${token}; expires=${new Date(expired)}`;
-        })
-        .catch(error => {
-          console.dir(error);
-        });
+    // 1. 先執行 login
+    // 2. 取得 token 後儲存到 browser cookie
+
+    const signIn = async () => {
+      try {
+        console.log('start');
+        const res = await axios.post(`${apiUrl}/v2/admin/signin`, user.value);
+
+        const { expired, token } = res.data;
+        // 儲存 token 在 cookie
+        document.cookie = `hexToken=${token}; expires=${new Date(expired)}`;
+        // 跳轉頁面
+        window.location = 'products.html';
+      } catch (error) {
+        alert(error.data.message);
+      }
     };
     const onSubmit = () => {
       signIn();
