@@ -21,7 +21,6 @@ createApp({
             getProductList()
             return
           }
-          debugger
           window.location = 'index.html';
         })
         .catch((err) => {
