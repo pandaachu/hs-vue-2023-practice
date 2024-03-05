@@ -14,7 +14,6 @@ createApp({
 
     const signIn = async () => {
       try {
-        console.log('start');
         const res = await axios.post(`${apiUrl}/v2/admin/signin`, user.value);
 
         const { expired, token } = res.data;

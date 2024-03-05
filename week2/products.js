@@ -34,11 +34,9 @@ createApp({
       const url = `${apiUrl}/api/${apiPath}/admin/products`;
       axios.get(url)
         .then((res) => {
-          console.log(res);
           products.value = res.data.products;
         })
         .catch((err) => {
-          console.log(err);
           alert(err.message);
         });
     };
